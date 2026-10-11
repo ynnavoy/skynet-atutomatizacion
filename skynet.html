@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skynet Automatización pilar | El futuro hoy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: '#00f3ff',
+                        darkbg: '#0a0f16',
+                        panelbg: '#111827'
+                    },
+                    boxShadow: {
+                        'neon': '0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3)',
+                        'neon-hover': '0 0 15px rgba(0, 243, 255, 0.8), 0 0 30px rgba(0, 243, 255, 0.5)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0f16;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00f3ff;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00c3cc;
+        }
+
+        /* Glowing Orbs Animation */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out alternate;
+            z-index: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-50px) scale(1.2); }
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        /* Service Card Hover Effect */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        .service-card:hover .icon-wrapper {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: #00f3ff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased relative">
+
+    <!-- Background Orbs -->
+    <div class="orb bg-cyan-600 w-96 h-96 top-0 left-[-10%]"></div>
+    <div class="orb bg-blue-800 w-[30rem] h-[30rem] bottom-0 right-[-10%] animation-delay-2000"></div>
+
+ <nav class="fixed w-full z-50 glass-panel border-b border-gray-800 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Barra delgada h-20 -->
+        <div class="flex items-center justify-between h-20">
+            
+            <!-- LADO IZQUIERDO: Logo + Texto -->
+            <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <!-- Aquí está el tamaño medio perfecto: h-16 en celulares, h-20 en PC -->
+                <img src="logo4.png" alt="Logo Skynet" class="h-16 md:h-20 w-auto object-contain drop-shadow-[0_0_8px_rgba(0,240,255,0.7)]">
+                
+                <!-- Texto alineado -->
+                <span class="font-tech text-2xl md:text-3xl font-bold tracking-wider text-white ml-3 md:ml-4">SKYNET<span class="text-neon ml-2">Automatización Pilar</span></span>
+            </div>
+         
+            <!-- LADO DERECHO: Desktop Menu -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8">
+                    <a href="#inicio" class="text-gray-300 hover:text-neon px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+                    <a href="#servicios" class="text-gray-300 hover:text-neon px-3 py-2 rounded-md text-sm font-medium transition-colors">Servicios</a>
+                    <a href="#nosotros" class="text-gray-300 hover:text-neon px-3 py-2 rounded-md text-sm font-medium transition-colors">Nosotros</a>
+                    <a href="#contacto" class="border border-neon text-neon hover:bg-neon hover:text-black px-5 py-2 rounded-md text-sm font-medium transition-all shadow-neon hover:shadow-neon-hover">Contactar</a>
+                </div>
+            </div>
+
+            <!-- Botón Mobile -->
+            <div class="md:hidden flex items-center">
+                <button type="button" id="mobile-menu-btn" class="text-gray-400 hover:text-white focus:outline-none focus:text-white">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú Mobile -->
+    <div class="md:hidden hidden bg-panelbg border-b border-gray-800 absolute w-full" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#inicio" class="text-gray-300 hover:text-neon block px-3 py-2 rounded-md text-base font-medium">Inicio</a>
+            <a href="#servicios" class="text-gray-300 hover:text-neon block px-3 py-2 rounded-md text-base font-medium">Servicios</a>
+            <a href="#nosotros" class="text-gray-300 hover:text-neon block px-3 py-2 rounded-md text-base font-medium">Nosotros</a>
+            <a href="#contacto" class="text-neon block px-3 py-2 rounded-md text-base font-medium border border-neon mt-4 text-center">Contactar</a>
+        </div>
+    </div>
+</nav>
+
+    <section id="inicio" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden z-10 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <h2 class="text-neon font-tech text-xl md:text-2xl mb-4 tracking-widest uppercase">El futuro de la eficiencia</h2>
+                <h1 class="text-5xl md:text-7xl font-tech font-bold text-white mb-6 leading-tight">
+                    Inteligencia que transforma tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon to-blue-500">entorno</span>
+                </h1>
+                <p class="mt-4 text-xl text-gray-400 mb-10">
+                    En Skynet automatizacion Pilar automatizamos tus procesos para un mañana más eficiente, seguro y conectado.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#servicios" class="bg-neon text-black font-semibold px-8 py-3 rounded-md hover:bg-white transition-colors shadow-neon text-lg flex items-center justify-center gap-2">
+                        Explorar Servicios <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#contacto" class="glass-panel text-white border border-gray-600 hover:border-neon px-8 py-3 rounded-md transition-all text-lg flex items-center justify-center gap-2 hover:text-neon">
+                        Solicitar Presupuesto
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Abstract Tech Elements -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-darkbg to-transparent z-0"></div>
+    </section>
+
+    <section id="servicios" class="py-20 bg-darkbg relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-neon font-tech text-lg tracking-widest uppercase mb-2">Nuestras Soluciones</h2>
+                <h3 class="text-3xl md:text-5xl font-tech font-bold text-white">Servicios de Automatización</h3>
+                <div class="w-24 h-1 bg-neon mx-auto mt-6 rounded-full shadow-neon"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+
+                <!-- Service 2: Domótica -->
+                <div class="service-card glass-panel p-8 rounded-xl border border-gray-800 relative overflow-hidden group">
+                    <div class="icon-wrapper w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 text-3xl mb-6 transition-all duration-300">
+                        <i class="fa-solid fa-house-signal"></i>
+                    </div>
+                    <h4 class="text-2xl font-tech font-bold text-white mb-3">Domótica Integral</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Convierte tu casa en un hogar inteligente. Control de clima, seguridad, entretenimiento y electrodomésticos desde una app centralizada o comandos de voz.
+                    </p>
+                </div>
+
+                <!-- Service 3: Riego -->
+                <div class="service-card glass-panel p-8 rounded-xl border border-gray-800 relative overflow-hidden group">
+                    <div class="icon-wrapper w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 text-3xl mb-6 transition-all duration-300">
+                        <i class="fa-solid fa-faucet-drip"></i>
+                    </div>
+                    <h4 class="text-2xl font-tech font-bold text-white mb-3">Sistemas de Riego</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Riego automatizado basado en sensores de humedad, pronóstico del clima y horarios. Ideal para grandes cultivos, jardines residenciales y paisajismo sustentable.
+                    </p>
+                </div>
+
+                <!-- Service 4: Iluminación -->
+                <div class="service-card glass-panel p-8 rounded-xl border border-gray-800 relative overflow-hidden group lg:col-start-1 lg:col-end-2 lg:ml-auto">
+                    <div class="icon-wrapper w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 text-3xl mb-6 transition-all duration-300">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h4 class="text-2xl font-tech font-bold text-white mb-3">Iluminación Inteligente</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Control de luces interiores y exteriores. Creación de escenas, automatización por presencia y horarios para ahorro energético y confort ambiental.
+                    </p>
+                </div>
+
+                <!-- Service 5: Portones -->
+                <div class="service-card glass-panel p-8 rounded-xl border border-gray-800 relative overflow-hidden group lg:col-start-2 lg:col-end-3">
+                    <div class="icon-wrapper w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 text-3xl mb-6 transition-all duration-300">
+                        <i class="fa-solid fa-warehouse"></i>
+                    </div>
+                    <h4 class="text-2xl font-tech font-bold text-white mb-3">Portones Automáticos</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Instalación y modernización de portones y accesos vehiculares. Integración con sistemas de reconocimiento de patentes, RFID o control móvil seguro.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ============================================== -->
+    <!-- PEGAR AQUÍ: JUSTO DESPUÉS DE CERRAR SERVICIOS  -->
+    <!-- ============================================== -->
+
+    <!-- Sección Nosotros -->
+    <section id="nosotros" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-tech">Conoce a <span class="text-neon">SKYNET</span></h2>
+                <div class="w-24 h-1 bg-neon mx-auto rounded-full" style="box-shadow: 0 0 10px rgba(0, 240, 255, 0.7);"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <div class="space-y-6 text-gray-300 text-lg leading-relaxed">
+                    <p>
+                        En <strong>SKYNET Automatización Pilar</strong> somos apasionados por la eficiencia técnica y la innovación. Nos especializamos en el diseño, desarrollo e implementación de sistemas de control inteligente, aplicando conceptos avanzados de electrotecnia y automatización para resolver desafíos reales.
+                    </p>
+                    <p>
+                        Nuestro enfoque integral nos permite abordar desde la programación y diseño de dispositivos hasta la integración de circuitos complejos. El objetivo es transformar tu entorno —ya sea un proceso industrial o un sistema residencial— garantizando máxima precisión y seguridad.
+                    </p>
+                    <p class="text-neon font-semibold text-xl font-tech tracking-wide pt-4">
+                        Automatizamos el presente para que domines el futuro.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="glass-panel p-6 rounded-xl border border-gray-800 hover:border-[#00f0ff] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                        <div class="text-[#00f0ff] text-3xl mb-4">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Desarrollo a Medida</h3>
+                        <p class="text-sm text-gray-400">Investigación y diseño de dispositivos de hardware y software adaptados a tus necesidades.</p>
+                    </div>
+                    
+                    <div class="glass-panel p-6 rounded-xl border border-gray-800 hover:border-[#00f0ff] transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                        <div class="text-[#00f0ff] text-3xl mb-4">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Sistemas de Control</h3>
+                        <p class="text-sm text-gray-400">Monitoreo de entornos, control de variables y optimización de funciones de transferencia.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PEGAR AQUÍ: JUSTO ANTES DE ABRIR CONTACTO      -->
+    <!-- ============================================== -->
+
+    <section id="contacto" class="py-20 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 border border-gray-700 shadow-2xl relative overflow-hidden">
+                <!-- Decorative grid line -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neon to-transparent"></div>
+                
+                <div class="text-center mb-10">
+                    <h3 class="text-3xl font-tech font-bold text-white mb-2">Inicia tu proyecto hoy</h3>
+                    <p class="text-gray-400">Contáctanos para una asesoría técnica gratuita</p>
+                </div>
+
+                <div class="flex justify-center items-center gap-10 py-10 mt-6">
+    <!-- Botón de LinkedIn -->
+    <a href="https://www.linkedin.com/in/skynetautomatizacion-pilar-9b0668436/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPvAwkl4%2FR8aMH3g6RLoOFg%3D%3D" target="_blank" 
+       class="text-gray-400 hover:text-[#00f0ff] transition-all duration-300 transform hover:scale-110">
+        <i class="fa-brands fa-linkedin text-6xl"></i>
+    </a>
+    
+    <!-- Botón de Instagram -->
+    <a href="https://www.instagram.com/skynetautomatizacion?utm_source=qr&stkn=NndmaXB2ZWFmMmpm" target="_blank" 
+       class="text-gray-400 hover:text-[#00f0ff] transition-all duration-300 transform hover:scale-110">
+        <i class="fa-brands fa-instagram text-6xl"></i>
+    </a>
+    
+    <!-- Botón de WhatsApp con mensaje predeterminado -->
+    <a href="https://wa.me/5491144494082?text=¡Hola%20Skynet!%20Me%20gustaría%20recibir%20asesoría%20técnica%20para%20un%20proyecto." target="_blank" 
+       class="text-gray-400 hover:text-[#00f0ff] transition-all duration-300 transform hover:scale-110">
+        <i class="fa-brands fa-whatsapp text-6xl"></i>
+    </a>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 bg-gray-900 border border-neon text-white px-6 py-4 rounded-lg shadow-neon flex items-center gap-3 transition-all duration-300 z-50 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-neon text-xl"></i>
+        <div>
+            <h4 class="font-bold text-sm">Mensaje Enviado</h4>
+            <p class="text-xs text-gray-400">Nos contactaremos contigo a la brevedad.</p>
+        </div>
+    </div>
+
+    <footer class="bg-black border-t border-gray-900 py-10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-network-wired text-neon text-xl"></i>
+                <span class="font-tech text-xl font-bold text-white">SKYNET<span class="text-gray-500 font-sans text-sm ml-1 font-normal">Automatización</span></span>
+            </div>
+        
+            
+            
+            <div class="flex gap-4">
+                <a href="https://www.linkedin.com/in/skynetautomatizacion-pilar-9b0668436/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPvAwkl4%2FR8aMH3g6RLoOFg%3D%3D" class="text-gray-500 hover:text-neon transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="https://www.instagram.com/skynetautomatizacion?utm_source=qr&stkn=NndmaXB2ZWFmMmpm" class="text-gray-500 hover:text-neon transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://wa.me/message/YKGM7HL7XSPEM1" class="text-gray-500 hover:text-neon transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar blur and shrink on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-0');
+                navbar.classList.remove('py-2');
+                navbar.style.background = 'rgba(10, 15, 22, 0.9)';
+            } else {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-0');
+                navbar.style.background = 'rgba(17, 24, 39, 0.7)';
+            }
+        });
+
+        // Form Submit Handler (Custom UI instead of alert)
+        const form = document.getElementById('contact-form');
+        const toast = document.getElementById('toast');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent actual submission
+            
+            // Show toast
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            // Reset form
+            form.reset();
+
+            // Hide toast after 3.5 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        });
+    </script>
+   
+</body>
+</html>
